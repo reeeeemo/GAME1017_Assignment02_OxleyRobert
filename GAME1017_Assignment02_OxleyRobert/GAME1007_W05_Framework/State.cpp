@@ -79,6 +79,7 @@ void GameState::Enter() // Initializing everything
 	}
 
 	m_pPlayer = new PlatformPlayer({ 0,0,0,0 }, { 128,576,64,64 } );
+	m_pPlatform = new SDL_FRect( { 0, 700, WIDTH, 20.0f } );
 
 	//Mix_VolumeMusic(16);
 
@@ -117,6 +118,8 @@ void GameState::Render()
 
 	// Rendering the background
 	m_pPlayer->Render();
+	SDL_SetRenderDrawColor(REMA::GetRenderer(), 255, 0, 0, 255);
+	SDL_RenderFillRectF(REMA::GetRenderer(), m_pPlatform);
 }
 
 void GameState::Exit()

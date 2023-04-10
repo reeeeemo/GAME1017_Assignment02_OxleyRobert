@@ -41,7 +41,7 @@ int Engine::Init(const char* title, const int xPos, const int yPos,
 	std::cout << "Initializing framework..." << std::endl;
 	srand((unsigned)time(nullptr)); // Seed random sequence. Only once.
 	SDL_Init(SDL_INIT_EVERYTHING);
-	REMA::Init(title, xPos, yPos, width, width, height, flags);
+	REMA::Init(title, xPos, yPos, width, height, flags, flags);
 	TEMA::Init();
 	EVMA::Init();
 	if (Mix_Init(MIX_INIT_MP3) != 0) {
