@@ -48,17 +48,8 @@ public:
 	virtual void Resume();
 
 private:
-	double speed; // zoom zoom!
 	map <std::string, SDL_Texture*> textures; // Holding player, background, bullet, and enemy textures
 	map<string, Mix_Chunk*> m_sfx; // Holding player shoot, enemy shoot, and collider sounds
-	Player* m_ship; // Floating-point precision.
-	SDL_FRect m_bg1, m_bg2; // Backgrounds for gameState
-	float m_scrollSpeed; // How fast the backgrounds scroll
-	int m_enemyCtr, m_enemyMax; // Enemy timer properties. Frame-based
-	vector<Bullet*>  m_bulletVec; // Holding all the bullets
-	vector<Enemy*> m_enemyVec; // Holding all the enemies
-	bool plrCanShoot; // Well, can player shoot?
-	bool hasPlrShot = false; // To stop multiple bullets being shot at once.
 };
 
 // Pause State
@@ -72,8 +63,6 @@ public:
 	virtual void Exit();
 
 private:
-	SDL_Window* m_pauseWindow;
-	SDL_Renderer* m_pauseRenderer;
 };
 // Make definition for end state
 class EndState : public State

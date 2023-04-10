@@ -7,9 +7,6 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "Bullet.h"
-#include "Enemy.h"
-#include "Player.h"
 #include <SDL_mixer.h>
 
 using namespace std;
@@ -27,7 +24,6 @@ public: // Put public heading first so you ALWAYS question why things are public
 	int Run();
 	SDL_Renderer* GetRenderer();
 	static Engine& Instance(); // Access	or for Engine object
-	static vector<Bullet*> m_enemyBulletVec;
 	static map<std::string, Mix_Music*> backgroundMusic; // Stores all the music!
 	bool KeyDown(SDL_Scancode);
 	double GetDeltaTime();

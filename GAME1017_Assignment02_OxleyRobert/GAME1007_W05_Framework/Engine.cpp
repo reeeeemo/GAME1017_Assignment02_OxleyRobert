@@ -202,5 +202,4 @@ void Engine::Clean()
 	SDL_Quit();
 }
 
-vector<Bullet*> Engine::m_enemyBulletVec;
 map<std::string, Mix_Music*> Engine::backgroundMusic; // Stores all the music!
