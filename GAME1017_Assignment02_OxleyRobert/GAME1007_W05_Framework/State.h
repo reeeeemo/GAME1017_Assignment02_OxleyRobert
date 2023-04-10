@@ -8,6 +8,7 @@
 
 #include "Engine.h"
 #include "StateManager.h"
+#include "PlatformPlayer.h"
 
 class StateManager; // Forward Declaration of StateManager
 
@@ -50,6 +51,7 @@ public:
 private:
 	map <std::string, SDL_Texture*> textures; // Holding player, background, bullet, and enemy textures
 	map<string, Mix_Chunk*> m_sfx; // Holding player shoot, enemy shoot, and collider sounds
+	PlatformPlayer* m_pPlayer;
 };
 
 // Pause State

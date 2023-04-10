@@ -2,7 +2,8 @@
 #include "StateManager.h"
 #include <iostream>
 #include "RenderManager.h"
-
+#include "GameObject.h"
+	
 void State::Render()
 {
 	SDL_RenderPresent(REMA::GetRenderer());
@@ -77,6 +78,7 @@ void GameState::Enter() // Initializing everything
 		}
 	}
 
+	m_pPlayer = new PlatformPlayer({ 0,0,0,0 }, { 128,576,64,64 } );
 
 	//Mix_VolumeMusic(16);
 
@@ -85,6 +87,8 @@ void GameState::Enter() // Initializing everything
 
 void GameState::Update()
 {
+	m_pPlayer->Update();
+
 	// Probably can put this in HandleEvents, will do that later
 	if (Engine::Instance().KeyDown(SDL_SCANCODE_P))
 	{
@@ -112,6 +116,7 @@ void GameState::Render()
 	SDL_RenderClear(engine_renderer);
 
 	// Rendering the background
+	m_pPlayer->Render();
 }
 
 void GameState::Exit()
