@@ -1,10 +1,11 @@
 #include "State.h"
 #include "StateManager.h"
 #include <iostream>
+#include "RenderManager.h"
 
 void State::Render()
 {
-	SDL_RenderPresent(Engine::Instance().GetRenderer());
+	SDL_RenderPresent(REMA::GetRenderer());
 }
 
 TitleState::TitleState(){}
@@ -20,7 +21,7 @@ void TitleState::Enter()
 	CButton::SetPosition(512, 128);
 	CButton::SetEnabled(true);
 
-	m_background = IMG_LoadTexture(Engine::Instance().GetRenderer(), "../Assets/img/menuBackground.jpg");
+	m_background = IMG_LoadTexture(REMA::GetRenderer(), "../Assets/img/menuBackground.jpg");
 }
 
 void TitleState::Update()
@@ -34,10 +35,10 @@ void TitleState::Update()
 
 void TitleState::Render()
 {
-	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 255, 255);
-	SDL_RenderClear(Engine::Instance().GetRenderer());
+	SDL_SetRenderDrawColor(REMA::GetRenderer(), 0, 0, 255, 255);
+	SDL_RenderClear(REMA::GetRenderer());
 
-	SDL_RenderCopyF(Engine::Instance().GetRenderer(), m_background, NULL, &m_bg1);
+	SDL_RenderCopyF(REMA::GetRenderer(), m_background, NULL, &m_bg1);
 
 }
 
@@ -52,7 +53,7 @@ GameState::GameState() = default;
 
 void GameState::Enter() // Initializing everything
 {
-	SDL_Renderer* engine_renderer = Engine::Instance().GetRenderer(); // Making it easier instead of multiple callbacks to Engine
+	SDL_Renderer* engine_renderer = REMA::GetRenderer(); // Making it easier instead of multiple callbacks to Engine
 	std::cout << "Entering GameState!" << std::endl;
 
 	// Error checking the textures
@@ -102,10 +103,10 @@ void GameState::Update()
 
 void GameState::Render()
 {
-	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 255, 255);
-	SDL_RenderClear(Engine::Instance().GetRenderer());
+	SDL_SetRenderDrawColor(REMA::GetRenderer(), 0, 0, 255, 255);
+	SDL_RenderClear(REMA::GetRenderer());
 
-	SDL_Renderer* engine_renderer = Engine::Instance().GetRenderer(); // Making it easier instead of multiple callbacks to Engine
+	SDL_Renderer* engine_renderer = REMA::GetRenderer(); // Making it easier instead of multiple callbacks to Engine
 	// Any unique rendering in TitleState goes here ...
 	SDL_SetRenderDrawColor(engine_renderer, 0, 0, 0, 255);
 	SDL_RenderClear(engine_renderer);
@@ -162,10 +163,10 @@ void PauseState::Update()
 void PauseState::Render()
 {
 	STMA::GetStates().front()->Render(); // Basically, renders the GameState as well that has not been booted out yet of the vector
-	SDL_SetRenderDrawBlendMode(Engine::Instance().GetRenderer(), SDL_BLENDMODE_BLEND);
-	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 255, 0, 0, 128); // Making window transparent
+	SDL_SetRenderDrawBlendMode(REMA::GetRenderer(), SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(REMA::GetRenderer(), 255, 0, 0, 128); // Making window transparent
 	SDL_Rect pause_rect = { 512, 128, 512, 512 };
-	SDL_RenderFillRect(Engine::Instance().GetRenderer(), &pause_rect);
+	SDL_RenderFillRect(REMA::GetRenderer(), &pause_rect);
 }
 
 void PauseState::Exit()
@@ -191,8 +192,8 @@ void EndState::Update()
 
 void EndState::Render()
 {
-	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 255, 0, 255);
-	SDL_RenderClear(Engine::Instance().GetRenderer());
+	SDL_SetRenderDrawColor(REMA::GetRenderer(), 0, 255, 0, 255);
+	SDL_RenderClear(REMA::GetRenderer());
 }
 
 void EndState::Exit()

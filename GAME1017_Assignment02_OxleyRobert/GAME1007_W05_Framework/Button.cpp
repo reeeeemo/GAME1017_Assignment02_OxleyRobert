@@ -3,7 +3,8 @@
 #include "StartButton.h"
 #include "PauseButton.h"
 #include "EndButton.h"
-
+#include "RenderManager.h"
+#include "EventManager.h"
 
 std::array<CButton*, NUM_BUTTONS> CButton::s_buttons;
 std::array<SDL_Texture*, NUM_BUTTONS> CButton::s_buttonTextures;
@@ -16,9 +17,9 @@ void CButton::Init()
 	s_buttons[START] = new CStartButton;
 	s_buttons[PAUSE] = new CPauseButton;
 	s_buttons[END] = new CEndButton;
-	s_buttonTextures[START] = IMG_LoadTexture(Engine::Instance().GetRenderer(), "../Assets/img/Play.png");
-	s_buttonTextures[PAUSE] = IMG_LoadTexture(Engine::Instance().GetRenderer(), "../Assets/img/Resume.png");
-	s_buttonTextures[END] = IMG_LoadTexture(Engine::Instance().GetRenderer(), "../Assets/img/Menu.png");
+	s_buttonTextures[START] = IMG_LoadTexture(REMA::GetRenderer(), "../Assets/img/Play.png");
+	s_buttonTextures[PAUSE] = IMG_LoadTexture(REMA::GetRenderer(), "../Assets/img/Resume.png");
+	s_buttonTextures[END] = IMG_LoadTexture(REMA::GetRenderer(), "../Assets/img/Menu.png");
 
 	// Error checker for textures.
 	for (SDL_Texture* texture: s_buttonTextures) {
@@ -39,8 +40,8 @@ void CButton::Update()
 {
 	// If there is no button to render OR the button in question is not enabled.
 	if (!s_currentButton->isEnabled) { return; }
-	int mouseX = static_cast<int>(Engine::Instance().m_mousePosition.x);
-	int mouseY = static_cast<int>(Engine::Instance().m_mousePosition.y);
+	int mouseX = static_cast<int>(EVMA::GetMousePos().x);
+	int mouseY = static_cast<int>(EVMA::GetMousePos().y);
 
 
 	if (SDL_GetMouseState(&mouseX, &mouseY) == 1) // If left click is pressed
@@ -90,7 +91,7 @@ void CButton::Render()
 	
 	// For when button is pressed
 	SDL_SetTextureAlphaMod(s_currentTexture, s_currentButton->m_alpha);
-	SDL_RenderCopyEx(Engine::Instance().GetRenderer(), s_currentTexture, &src_rect, &dst_rect, 0, nullptr, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(REMA::GetRenderer(), s_currentTexture, &src_rect, &dst_rect, 0, nullptr, SDL_FLIP_NONE);
 
 }
 
@@ -115,7 +116,7 @@ bool CButton::IsMouseOver() {
 	* - Greater than button.y
 	* - Less than button.y + button.h
 	*/
-	SDL_FPoint temp_mouse_pos = Engine::Instance().m_mousePosition;
+	SDL_Point temp_mouse_pos = EVMA::GetMousePos();
 	SDL_Rect temp_button_pos = s_currentButton->m_dst;
 	if (static_cast<int>(temp_mouse_pos.x) >= temp_button_pos.x &&
 		static_cast<int>(temp_mouse_pos.x) <= temp_button_pos.x + temp_button_pos.w &&

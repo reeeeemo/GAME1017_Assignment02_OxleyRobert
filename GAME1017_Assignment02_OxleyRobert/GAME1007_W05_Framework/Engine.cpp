@@ -6,9 +6,9 @@
 #include "Button.h"
 #include "TextureManager.h"
 #include "EventManager.h"
+#include "RenderManager.h"
 
-
-Engine::Engine():m_pWindow(nullptr), m_pRenderer(nullptr), m_isRunning(false)
+Engine::Engine():m_isRunning(false)
 {
 }
 
@@ -41,19 +41,7 @@ int Engine::Init(const char* title, const int xPos, const int yPos,
 	std::cout << "Initializing framework..." << std::endl;
 	srand((unsigned)time(nullptr)); // Seed random sequence. Only once.
 	SDL_Init(SDL_INIT_EVERYTHING);
-	m_pWindow = SDL_CreateWindow(title,	xPos, yPos, width, height, flags);
-	if (m_pWindow == nullptr) // Or NULL is okay too
-	{
-		std::cout << "Error during window creation!" << std::endl;
-		return 1;
-	}
-	m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
-	if (m_pRenderer == nullptr) // Or NULL is okay too
-	{
-		std::cout << "Error during renderer creation!" << std::endl;
-		return 1;
-	}
-	
+	REMA::Init(title, xPos, yPos, width, width, height, flags);
 	TEMA::Init();
 	EVMA::Init();
 	if (Mix_Init(MIX_INIT_MP3) != 0) {
@@ -115,11 +103,6 @@ bool Engine::KeyDown(SDL_Scancode c)
 	return false;
 }
 
-SDL_Renderer* Engine::GetRenderer()
-{
-	return m_pRenderer;
-}
-
 Engine& Engine::Instance()
 {
 	static Engine instance; // Creating Engine Object
@@ -132,7 +115,7 @@ void Engine::Update()
 {
 	//cout << "Updating frame..." << endl;
 	string tickLabel = "DT: " + to_string(deltaTime);
-	SDL_SetWindowTitle(m_pWindow, tickLabel.c_str()); // c_str just returns the char array (char *)
+	SDL_SetWindowTitle(REMA::GetWindow(), tickLabel.c_str()); // c_str just returns the char array (char *)
 	STMA::Update(); // Updating current state
 }
 
@@ -151,7 +134,7 @@ void Engine::Render()
 	//cout << "Rendering changes..." << endl;
 	STMA::Render();
 	
-	SDL_RenderPresent(m_pRenderer); // Flips the buffers.
+	SDL_RenderPresent(REMA::GetRenderer()); // Flips the buffers.
 }
 
 double Engine::GetDeltaTime()
@@ -170,8 +153,7 @@ void Engine::Clean()
 	std::cout << "Cleaning up..." << std::endl;
 
 	// Deletion of renderer and window
-	SDL_DestroyRenderer(m_pRenderer);
-	SDL_DestroyWindow(m_pWindow);
+	REMA::Quit();
 
 	// Deallocating all background music >:)
 	for (pair<string, Mix_Music*> music : backgroundMusic)

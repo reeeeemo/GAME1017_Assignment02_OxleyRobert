@@ -22,7 +22,6 @@ class Engine
 {
 public: // Put public heading first so you ALWAYS question why things are public!
 	int Run();
-	SDL_Renderer* GetRenderer();
 	static Engine& Instance(); // Access	or for Engine object
 	static map<std::string, Mix_Music*> backgroundMusic; // Stores all the music!
 	bool KeyDown(SDL_Scancode);
@@ -39,8 +38,6 @@ private:
 	double m_fps; // Changed to double.
 
 	const Uint8* m_pKeystates;
-	SDL_Window* m_pWindow; // Pointers are normal variables that hold addresses.
-	SDL_Renderer* m_pRenderer; // Pointer to "back buffer"
 	bool m_isRunning;
 
 	// Example-specific properties.
