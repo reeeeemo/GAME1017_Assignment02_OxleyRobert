@@ -27,6 +27,7 @@ public: // Put public heading first so you ALWAYS question why things are public
 	static map<std::string, Mix_Music*> backgroundMusic; // Stores all the music!
 	bool KeyDown(SDL_Scancode);
 	double GetDeltaTime();
+	void SetRunning(bool run);
 
 	// Yes I know this is not the greatest, but I don't want unneccesary accessors and not keen on creating an EventManager component at the moment.
 	SDL_FPoint m_mousePosition;

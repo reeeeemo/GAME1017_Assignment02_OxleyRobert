@@ -4,8 +4,9 @@
 #include <sstream>
 #include "StateManager.h"
 #include "Button.h"
+#include "TextureManager.h"
+#include "EventManager.h"
 
-using namespace std;
 
 Engine::Engine():m_pWindow(nullptr), m_pRenderer(nullptr), m_isRunning(false)
 {
@@ -52,11 +53,9 @@ int Engine::Init(const char* title, const int xPos, const int yPos,
 		std::cout << "Error during renderer creation!" << std::endl;
 		return 1;
 	}
-	if (IMG_Init( IMG_INIT_PNG | IMG_INIT_JPG ) == 0)
-	{
-		std::cout << SDL_GetError() << std::endl; // Prints last SDL error msg.
-		return 1;
-	}
+	
+	TEMA::Init();
+	EVMA::Init();
 	if (Mix_Init(MIX_INIT_MP3) != 0) {
 		// Configure mixer
 		Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 2048);
@@ -93,26 +92,7 @@ int Engine::Init(const char* title, const int xPos, const int yPos,
 
 void Engine::HandleEvents()
 {
-	//cout << "Handling events..." << endl;
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		switch (event.type)
-		{
-		case SDL_QUIT: // Pressing 'X' icon in SDL window.
-			m_isRunning = false; // Tell Run() we're done.
-			break;
-		case SDL_KEYDOWN:
-			// Keeping this here in case needed to revert
-			// if (event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-			//
-			break;
-		case SDL_MOUSEMOTION:
-			m_mousePosition.x = static_cast<float>(event.motion.x);
-			m_mousePosition.y = static_cast<float>(event.motion.y);
-			break;
-		}
-	}
+	EVMA::HandleEvents();
 }
 
 void Engine::Wake()
@@ -179,6 +159,11 @@ double Engine::GetDeltaTime()
 	return deltaTime;
 }
 
+void Engine::SetRunning(bool running)
+{
+	m_isRunning = running;
+}
+
 
 void Engine::Clean()
 {
@@ -198,6 +183,8 @@ void Engine::Clean()
 	Mix_CloseAudio();
 	Mix_Quit();
 	STMA::Quit();
+	TEMA::Quit();
+	EVMA::Quit();
 	IMG_Quit();
 	SDL_Quit();
 }
