@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="EndButton.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="PlatformPlayer.cpp" />
     <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="ScrollingBackground.cpp" />
     <ClCompile Include="Spritesheet.cpp" />
     <ClCompile Include="StartButton.cpp" />
     <ClCompile Include="State.cpp" />
@@ -164,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Background.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="EndButton.h" />
@@ -179,6 +182,7 @@
     <ClInclude Include="PlatformPlayer.h" />
     <ClInclude Include="Primitives.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="ScrollingBackground.h" />
     <ClInclude Include="Spritesheet.h" />
     <ClInclude Include="StartButton.h" />
     <ClInclude Include="State.h" />
