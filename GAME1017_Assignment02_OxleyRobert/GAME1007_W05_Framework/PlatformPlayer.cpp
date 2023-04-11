@@ -12,7 +12,7 @@ const std::string plrTextFile = "../Assets/dat/Player.txt";
 const std::string plrKey = "player";
 
 PlatformPlayer::PlatformPlayer(SDL_Rect src, SDL_FRect dst) :AnimatedSprite(src, dst, STATE_IDLING),
-	m_grounded(false), m_facingLeft(false), m_maxVelX(9.0),
+	m_grounded(false), m_facingLeft(false), m_maxVelX(4.0),
 	m_maxVelY(kJumpForce), m_grav(kGrav), m_drag(0.8)
 {
 	TEMA::LoadSpriteMap(plrTextFile.c_str(), plrSpriteFile.c_str(), plrKey);
@@ -111,7 +111,6 @@ void PlatformPlayer::Update()
 		m_dst.x = -m_dst.w;
 	}
 
-
 	m_accelX = m_accelY = 0.0; // Resetting accel every frame.
 	// Invoke the animation.
 	Animate();
@@ -120,7 +119,6 @@ void PlatformPlayer::Update()
 void PlatformPlayer::Render()
 {
 	//DEMA::DrawRect(*GetDst(), true, { 255, 0, 0, 255 });
-
 	if (m_facingLeft) {
 		SDL_RenderCopyExF(REMA::GetRenderer(), TEMA::GetTexture(plrKey),
 			GetSrc(), GetDst(), 0, NULL, SDL_FLIP_HORIZONTAL);
