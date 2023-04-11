@@ -81,6 +81,9 @@ void GameState::Enter() // Initializing everything
 	m_pPlayer = new PlatformPlayer({ 0,0,0,0 }, { 128,576,64,64 } );
 	m_pPlatform = new SDL_FRect( { 0, 700, WIDTH, 20.0f } );
 
+	m_pPlayer->SetX(500.0f);
+	m_pPlayer->SetY(500.0f);
+
 	//Mix_VolumeMusic(16);
 
 	//Mix_PlayMusic(Engine::backgroundMusic["playMusic"], -1);

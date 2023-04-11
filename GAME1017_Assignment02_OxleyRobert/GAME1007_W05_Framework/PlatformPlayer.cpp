@@ -96,6 +96,10 @@ void PlatformPlayer::Update()
 	m_velY += m_accelY + m_grav;
 	m_velY = std::min(std::max(m_velY, -m_maxVelY), m_maxVelY);
 	m_dst.y += (float)m_velY;
+	if (m_dst.y > 630.0f)
+	{
+		m_dst.y = 630.0f;
+	}
 	
 	// Wrapping on screen
 	if (m_dst.x < -m_dst.w) {
