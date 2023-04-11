@@ -7,6 +7,7 @@
 #include "TextureManager.h"
 #include "EventManager.h"
 #include "RenderManager.h"
+#include "FontManager.h"
 
 Engine::Engine():m_isRunning(false)
 {

@@ -5,7 +5,8 @@
 #include "CollisionManager.h"
 #include "RenderManager.h"
 #include "GameObject.h"
-	
+#include "FontManager.h"	
+
 void State::Render()
 {
 	SDL_RenderPresent(REMA::GetRenderer());
@@ -59,7 +60,7 @@ void GameState::Enter() // Initializing everything
 	SDL_Renderer* engine_renderer = REMA::GetRenderer(); // Making it easier instead of multiple callbacks to Engine
 	std::cout << "Entering GameState!" << std::endl;
 
-	
+	FOMA::Load("../Assets/font/OpenSans-Medium.ttf", "sans", 24);
 	
 	// Error checking sounds...... (maybe no errors?)
 	for (std::pair<string, Mix_Chunk*> soundFX : m_sfx) 
@@ -79,7 +80,7 @@ void GameState::Enter() // Initializing everything
 	
 	obstacleRow = new ObstacleRow;
 	
-	
+	elapsedTime = 0;
 	
 
 	//Mix_VolumeMusic(16);
@@ -89,6 +90,7 @@ void GameState::Enter() // Initializing everything
 
 void GameState::Update()
 {
+	elapsedTime += std::round(Engine::Instance().GetDeltaTime() * 100) / 100;
 	m_pPlayer->Update();
 	obstacleRow->Update();
 	m_background->Update();
@@ -166,7 +168,21 @@ void GameState::Render()
 
 	// Rendering the background
 	m_background->Render();
+
+	// Render the text!
+	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(FOMA::GetFont("sans"), std::to_string(elapsedTime).c_str(), { 255, 255, 255 });
+
+	SDL_Texture* Message = SDL_CreateTextureFromSurface(REMA::GetRenderer(), surfaceMessage);
+
+	SDL_Rect msg_rect = { 0, 0, 100, 100 };
+
+	SDL_RenderCopy(REMA::GetRenderer(), Message, NULL, &msg_rect);
+
+
 	m_pPlayer->Render();
+
+	
+
 	SDL_SetRenderDrawColor(REMA::GetRenderer(), 255, 0, 0, 255);
 	SDL_RenderFillRectF(REMA::GetRenderer(), m_pPlatform);
 	obstacleRow->Render();

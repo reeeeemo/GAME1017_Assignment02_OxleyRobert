@@ -57,6 +57,7 @@ private:
 	ScrollingBackground* m_background;
 	SDL_FRect* m_pPlatform;
 	ObstacleRow* obstacleRow;
+	float elapsedTime;
 };
 
 // Pause State
