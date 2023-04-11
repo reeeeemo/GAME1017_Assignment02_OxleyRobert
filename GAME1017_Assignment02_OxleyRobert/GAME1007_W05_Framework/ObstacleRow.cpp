@@ -38,18 +38,18 @@ void ObstacleRow::Update()
 					{
 					case GREEN_TREE:
 						obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f, 128.0f, 168.0f }, true, new Image({ 0, 0, 110, 168 }, { 128 / 2, -(168 / 2), 110, 168 }, "obstacleSheet"));
-						obst->SetIsHazard(true);
+						obst->SetIsHazard(false);
 						m_obstacles.push_back(obst);
 						break;
 					case BLUE_TREE:
 						obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f, 128.0f, 168.0f }, true, new Image({ 110, 164, 110, 168 }, { 128 / 2, -(168 / 2), 110, 168 }, "obstacleSheet"));
-						obst->SetIsHazard(true);
+						obst->SetIsHazard(false);
 						m_obstacles.push_back(obst);
 						break;
 					case HANGING_RED_TREE:
 						
 						obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f - 128.0f, 128.0f, 168.0f }, true, new Image({ 380, 356, 120, 184 }, { 128 / 2, -(184 / 2), 110, 184 }, "obstacleSheet"));
-						obst->SetIsHazard(false);
+						obst->SetIsHazard(true);
 						m_obstacles.push_back(obst);
 						break;
 					}
