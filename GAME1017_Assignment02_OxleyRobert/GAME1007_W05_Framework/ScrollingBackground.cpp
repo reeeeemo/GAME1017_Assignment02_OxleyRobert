@@ -6,23 +6,23 @@ ScrollingBackground::ScrollingBackground()
 {
 	m_backgrounds.reserve(8);
 	// First background
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, {0.0f, 0.0f, WIDTH, HEIGHT }, 1.0f,
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, {0.0f, 0.0f, WIDTH, HEIGHT }, 3.0f,
 		"../Assets/img/background.png", "menuBG1"));
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { 0.0f, 0.0f, WIDTH, HEIGHT }, 1.0f,
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { 0.0f, 0.0f, WIDTH, HEIGHT }, 3.0f,
 		"../Assets/img/towers.png", "towersBG2"));
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { 0.0f, 0.0f, WIDTH, HEIGHT }, 1.0f,
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { 0.0f, 0.0f, WIDTH, HEIGHT }, 3.0f,
 		"../Assets/img/buildings.png", "buildingsBG3"));
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { 0.0f, 0.0f, WIDTH, HEIGHT }, 1.0f,
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { 0.0f, 0.0f, WIDTH, HEIGHT }, 3.0f,
 		"../Assets/img/foreground.png", "foregroundBG4"));
 
 	// Second background
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 1.0f,
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 3.0f,
 		"../Assets/img/background.png", "menuBG1"));
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 1.0f,
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 3.0f,
 		"../Assets/img/towers.png", "towersBG2"));
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 1.0f,
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 3.0f,
 		"../Assets/img/buildings.png", "buildingsBG3"));
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 1.0f,
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 3.0f,
 		"../Assets/img/foreground.png", "foregroundBG4"));
 }
 
@@ -41,7 +41,10 @@ ScrollingBackground::~ScrollingBackground()
 void ScrollingBackground::Update()
 {
 	for (const auto background : m_backgrounds)
+	{
 		background->Update();
+		background->m_playerSpeed = playerSpeed;
+	}
 }
 
 void ScrollingBackground::Render()

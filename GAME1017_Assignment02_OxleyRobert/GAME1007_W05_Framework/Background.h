@@ -10,6 +10,8 @@ public:
 	Background(const SDL_Rect src, const SDL_FRect dst, float speed, std::string path, std::string key);
 	void Update();
 	void Render();
+
+	float m_playerSpeed = 0;
 private:
 	SDL_Rect m_src;
 	float m_scrollSpeed;

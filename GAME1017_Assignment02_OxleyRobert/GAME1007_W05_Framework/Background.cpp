@@ -20,7 +20,7 @@ void Background::Update()
 		m_dst.x = m_start.x;
 	}
 	// Scroll the background
-	m_dst.x -= m_scrollSpeed;
+	m_dst.x -= m_scrollSpeed * m_playerSpeed * 2;
 }
 
 void Background::Render()
