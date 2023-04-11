@@ -59,6 +59,8 @@ void GameState::Enter() // Initializing everything
 	SDL_Renderer* engine_renderer = REMA::GetRenderer(); // Making it easier instead of multiple callbacks to Engine
 	std::cout << "Entering GameState!" << std::endl;
 
+	
+
 	// Error checking the textures
 	for (std::pair<string, SDL_Texture*> texture : textures)
 	{
@@ -85,6 +87,11 @@ void GameState::Enter() // Initializing everything
 
 	m_pPlayer->SetX(500.0f);
 	m_pPlayer->SetY(500.0f);
+	
+	obstacleRow = new ObstacleRow;
+	
+	
+	
 
 	//Mix_VolumeMusic(16);
 
@@ -94,6 +101,7 @@ void GameState::Enter() // Initializing everything
 void GameState::Update()
 {
 	m_pPlayer->Update();
+	obstacleRow->Update();
 
 	// Probably can put this in HandleEvents, will do that later
 	if (Engine::Instance().KeyDown(SDL_SCANCODE_P))
@@ -110,33 +118,35 @@ void GameState::Update()
 		STMA::ChangeState(new EndState());
 	}
 	SDL_FRect* p = m_pPlayer->GetDst();
-	for (int i = 0; i < obstacles.size(); i++)
+	for (int i = 0; i < obstacleRow->GetObstacles().size(); i++)
 	{
-		SDL_FRect* t = obstacles[i]->GetDst();
-		if (COMA::AABBCheck(*p, *t)) // Collision check between player rect and platform rect.
+		SDL_FRect t = obstacleRow->GetObstacles()[i]->GetDst();
+		if (COMA::AABBCheck(*p, t)) // Collision check between player rect and platform rect.
 			{
-			if ((p->y + p->h) - (float)m_pPlayer->GetVelY() <= t->y) // If bottom of player < top of platform in "previous frame"
+			std::cout << "COLLISION\n";
+			if ((p->y + p->h) - (float)m_pPlayer->GetVelY() <= t.y) // If bottom of player < top of platform in "previous frame"
 				{ // Colliding with top side of tile. Or collided from top.
 				m_pPlayer->StopY();
-				m_pPlayer->SetY(t->y - p->h);
+				m_pPlayer->SetY(t.y - p->h);
 				m_pPlayer->SetGrounded(true);
-				} else if (p->y - static_cast<float>(m_pPlayer->GetVelY()) >= t->y + t->h)
+				} else if (p->y - static_cast<float>(m_pPlayer->GetVelY()) >= t.y + t.h)
 				{ // Colliding with bottom side of tile
 					m_pPlayer->StopY();
-					m_pPlayer->SetY(t->y + t->h);
-				} else if ((p->x + p->w) - static_cast<float>(m_pPlayer->GetVelX()) <= t->x)
+					m_pPlayer->SetY(t.y + t.h);
+				} else if ((p->x + p->w) - static_cast<float>(m_pPlayer->GetVelX()) <= t.x)
 				{ // Colliding with left side of tile
 					m_pPlayer->StopX();
-					m_pPlayer->SetX(t->x - p->w);
-				} else if (p->x - static_cast<float>(m_pPlayer->GetVelX()) >= (t->x + t->w))
+					m_pPlayer->SetX(t.x - p->w);
+				} else if (p->x - static_cast<float>(m_pPlayer->GetVelX()) >= (t.x + t.w))
 				{ // Colliding with right side of tile
 					m_pPlayer->StopX();
-					m_pPlayer->SetX(t->x + t->w);
+					m_pPlayer->SetX(t.x + t.w);
 				}
 			// Other checks to come.
 			}
 		// End collision checks.
 	}
+	
 }
 
 void GameState::Render()
@@ -153,6 +163,7 @@ void GameState::Render()
 	m_pPlayer->Render();
 	SDL_SetRenderDrawColor(REMA::GetRenderer(), 255, 0, 0, 255);
 	SDL_RenderFillRectF(REMA::GetRenderer(), m_pPlatform);
+	obstacleRow->Render();
 }
 
 void GameState::Exit()

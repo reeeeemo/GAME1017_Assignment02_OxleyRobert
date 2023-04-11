@@ -2,7 +2,7 @@
 #include "RenderManager.h"
 
 Obstacle::Obstacle(const SDL_FRect dst, bool hasImage, const SDL_Rect src, const char* key)
-    :m_hasImage(hasImage), m_pImage(nullptr), dst_rect(dst)
+    :m_hasImage(hasImage), m_pImage(nullptr)
 {
     m_pos = { dst.x, dst.y };
 }
@@ -51,4 +51,10 @@ void Obstacle::Render()
 	
     SDL_SetRenderDrawColor(REMA::GetRenderer(), 128, 0, 128, 255);
     SDL_RenderDrawRectF(REMA::GetRenderer(), &m_dst);
+}
+
+SDL_FRect Obstacle::GetDst()
+{
+    SDL_FRect temp = {m_pos.x, m_pos.y,128,128};
+    return temp;
 }

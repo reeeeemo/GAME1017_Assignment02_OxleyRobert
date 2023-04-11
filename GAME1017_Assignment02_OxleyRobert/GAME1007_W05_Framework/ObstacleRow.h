@@ -18,7 +18,7 @@ public: // Methods.
     ObstacleRow();
     void Update();
     void Render();
-	
+	std::vector<Obstacle*> GetObstacles() {return m_obstacles;}
     void PickRandomObstacle();
 
 private: // Properties.

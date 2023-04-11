@@ -13,12 +13,11 @@ public:
     void Update();
     void Render();
     const SDL_FPoint GetPos() { return m_pos; }
-    SDL_FRect* GetDst() {return &dst_rect;}
+    SDL_FRect GetDst();
 private:
     bool m_hasImage;
     Image* m_pImage; // Pointer to visual component.
     SDL_FPoint m_pos; // Position on screen.
-    SDL_FRect dst_rect;
 	
 	
 
