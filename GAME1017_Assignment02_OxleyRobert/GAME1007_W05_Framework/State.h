@@ -10,6 +10,7 @@
 #include "Obstacle.h"
 #include "StateManager.h"
 #include "PlatformPlayer.h"
+#include "ScrollingBackground.h"
 
 class StateManager; // Forward Declaration of StateManager
 
@@ -50,9 +51,9 @@ public:
 	virtual void Resume();
 
 private:
-	map <std::string, SDL_Texture*> textures; // Holding player, background, bullet, and enemy textures
 	map<string, Mix_Chunk*> m_sfx; // Holding player shoot, enemy shoot, and collider sounds
 	PlatformPlayer* m_pPlayer;
+	ScrollingBackground* m_background;
 	SDL_FRect* m_pPlatform;
 	std::vector<Obstacle*> obstacles;
 };

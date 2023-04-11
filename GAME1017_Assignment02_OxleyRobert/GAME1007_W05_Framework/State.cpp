@@ -59,18 +59,6 @@ void GameState::Enter() // Initializing everything
 	SDL_Renderer* engine_renderer = REMA::GetRenderer(); // Making it easier instead of multiple callbacks to Engine
 	std::cout << "Entering GameState!" << std::endl;
 
-	// Error checking the textures
-	for (std::pair<string, SDL_Texture*> texture : textures)
-	{
-		if (texture.second == nullptr)
-		{
-			std::cout << SDL_GetError() << std::endl;
-		}
-	}
-
-	// Putting the sounds into the map
-	//m_sfx.emplace("collision", Mix_LoadWAV("../Assets/mus/collisionSound.wav"));
-
 	// Error checking sounds...... (maybe no errors?)
 	for (std::pair<string, Mix_Chunk*> soundFX : m_sfx) 
 	{
@@ -81,6 +69,7 @@ void GameState::Enter() // Initializing everything
 	}
 
 	m_pPlayer = new PlatformPlayer({ 0,0,0,0 }, { 128,576,64,64 } );
+	m_background = new ScrollingBackground();
 	m_pPlatform = new SDL_FRect( { 0, 700, WIDTH, 20.0f } );
 
 	m_pPlayer->SetX(500.0f);
@@ -94,6 +83,7 @@ void GameState::Enter() // Initializing everything
 void GameState::Update()
 {
 	m_pPlayer->Update();
+	m_background->Update();
 
 	// Probably can put this in HandleEvents, will do that later
 	if (Engine::Instance().KeyDown(SDL_SCANCODE_P))
@@ -150,6 +140,8 @@ void GameState::Render()
 	SDL_RenderClear(engine_renderer);
 
 	// Rendering the background
+	m_background->Render();
+
 	m_pPlayer->Render();
 	SDL_SetRenderDrawColor(REMA::GetRenderer(), 255, 0, 0, 255);
 	SDL_RenderFillRectF(REMA::GetRenderer(), m_pPlatform);
@@ -158,13 +150,6 @@ void GameState::Render()
 void GameState::Exit()
 {
 	std::cout << "Exiting GameState!" << std::endl;
-
-	// Deallocating all texture pointers :D
-	for (pair<string, SDL_Texture*> texture : textures)
-	{
-		SDL_DestroyTexture(texture.second);
-	}
-	textures.clear(); // Finally, clearing out the map.
 
 	// Deallocating all sound pointers :)
 	for (pair<string, Mix_Chunk*> soundFX : m_sfx) 
