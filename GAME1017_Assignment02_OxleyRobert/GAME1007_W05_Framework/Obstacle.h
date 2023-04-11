@@ -14,11 +14,13 @@ public:
     void Render();
     const SDL_FPoint GetPos() { return m_pos; }
     SDL_FRect GetDst();
+    bool GetisHazard();
+    void SetIsHazard(bool hazard);
 private:
     bool m_hasImage;
     Image* m_pImage; // Pointer to visual component.
-    SDL_FPoint m_pos; // Position on screen.
-	
+    SDL_FPoint m_pos;// Position on screen.
+	bool m_isHazard;
 	
 
 };

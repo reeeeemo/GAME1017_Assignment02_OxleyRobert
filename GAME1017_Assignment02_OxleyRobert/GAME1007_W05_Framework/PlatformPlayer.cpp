@@ -13,7 +13,7 @@ const std::string plrKey = "player";
 
 PlatformPlayer::PlatformPlayer(SDL_Rect src, SDL_FRect dst) :AnimatedSprite(src, dst, STATE_IDLING),
 	m_grounded(false), m_facingLeft(false), m_maxVelX(4.0),
-	m_maxVelY(kJumpForce), m_grav(kGrav), m_drag(0.8)
+	m_maxVelY(kJumpForce), m_grav(kGrav), m_drag(0.8), m_isHit(false)
 {
 	TEMA::LoadSpriteMap(plrTextFile.c_str(), plrSpriteFile.c_str(), plrKey);
 	SetSpriteSheet(TEMA::GetSpriteSheet(plrKey));
@@ -96,12 +96,6 @@ void PlatformPlayer::Update()
 	m_velY += m_accelY + m_grav;
 	m_velY = std::min(std::max(m_velY, -m_maxVelY), m_maxVelY);
 	m_dst.y += (float)m_velY;
-	if (m_dst.y >= 300.0f)
-	{
-		m_dst.y = 300.0f;
-		m_grounded = true;
-		m_velY = 0.0;
-	}
 	
 	// Wrapping on screen
 	if (m_dst.x < -m_dst.w) {
@@ -112,6 +106,14 @@ void PlatformPlayer::Update()
 	}
 
 	m_accelX = m_accelY = 0.0; // Resetting accel every frame.
+	if(m_isHit)
+	{
+		m_isHit = false;
+		m_velX = 0.0;
+		m_velY = 0.0;
+		SetAnimation(STATE_DEATH, "jump");
+		
+	}
 	// Invoke the animation.
 	Animate();
 }
@@ -148,6 +150,16 @@ bool PlatformPlayer::IsGrounded() { return m_grounded; }
 
 void PlatformPlayer::SetGrounded(bool grounded) { m_grounded = grounded; }
 
+bool PlatformPlayer::isHit()
+{
+	return m_isHit;
+}
+
+void PlatformPlayer::SetIsHit(bool hit)
+{
+	m_isHit = hit;
+}
+
 double PlatformPlayer::GetVelX() { return m_velX; }
 
 double PlatformPlayer::GetVelY() { return m_velY; }
@@ -155,3 +167,8 @@ double PlatformPlayer::GetVelY() { return m_velY; }
 void PlatformPlayer::SetX(float x) { m_dst.x = x; }
 
 void PlatformPlayer::SetY(float y) { m_dst.y = y; }
+
+double PlatformPlayer::GetAccelY()
+{
+	return m_accelY;
+}

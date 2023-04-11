@@ -114,25 +114,33 @@ void GameState::Update()
 		SDL_FRect t = obstacleRow->GetObstacles()[i]->GetDst();
 		if (COMA::AABBCheck(*p, t)) // Collision check between player rect and platform rect.
 			{
-			std::cout << "COLLISION\n";
-			if ((p->y + p->h) - (float)m_pPlayer->GetVelY() <= t.y) // If bottom of player < top of platform in "previous frame"
+			std::cout << "Collision\n";
+			if ((p->y + p->h) - (float)m_pPlayer->GetVelY() >= t.y) // If bottom of player < top of platform in "previous frame"
 				{ // Colliding with top side of tile. Or collided from top.
 				m_pPlayer->StopY();
 				m_pPlayer->SetY(t.y - p->h);
 				m_pPlayer->SetGrounded(true);
+				std::cout << "TOP SIDE\n";
 				} else if (p->y - static_cast<float>(m_pPlayer->GetVelY()) >= t.y + t.h)
 				{ // Colliding with bottom side of tile
 					m_pPlayer->StopY();
 					m_pPlayer->SetY(t.y + t.h);
+					std::cout << "BOTTOM SIDE\n";
 				} else if ((p->x + p->w) - static_cast<float>(m_pPlayer->GetVelX()) <= t.x)
 				{ // Colliding with left side of tile
 					m_pPlayer->StopX();
 					m_pPlayer->SetX(t.x - p->w);
+					std::cout << "LEFT SIDE\n";
 				} else if (p->x - static_cast<float>(m_pPlayer->GetVelX()) >= (t.x + t.w))
 				{ // Colliding with right side of tile
 					m_pPlayer->StopX();
 					m_pPlayer->SetX(t.x + t.w);
+					std::cout << "RIGHT SIDE\n";
 				}
+			if(obstacleRow->GetObstacles()[i]->GetisHazard())
+			{
+				m_pPlayer->SetIsHit(true);	
+			}
 			// Other checks to come.
 			}
 		// End collision checks.

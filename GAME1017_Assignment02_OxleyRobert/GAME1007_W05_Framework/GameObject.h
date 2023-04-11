@@ -3,7 +3,7 @@
 #include <SDL_rect.h>
 #include "Spritesheet.h"
 
-enum AnimState { STATE_IDLING, STATE_RUNNING, STATE_JUMPING };
+enum AnimState { STATE_IDLING, STATE_RUNNING, STATE_JUMPING, STATE_DEATH };
 
 class GameObject
 {

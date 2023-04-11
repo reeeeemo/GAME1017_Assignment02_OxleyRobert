@@ -20,12 +20,15 @@ public: // Methods.
 	void SetAccelY(double accel);
 	bool IsGrounded();
 	void SetGrounded(bool grounded);
+	bool isHit();
+	void SetIsHit(bool hit);
 	double GetVelX();
 	double GetVelY();
 	void SetX(float x);
 	void SetY(float y);
+	double GetAccelY();
 private: // Properties.
-	bool m_grounded, m_facingLeft;
+	bool m_grounded, m_facingLeft, m_isHit;
 	double m_accelX,
 		m_accelY,
 		m_velX,

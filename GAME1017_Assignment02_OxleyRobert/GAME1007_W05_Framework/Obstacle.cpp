@@ -58,3 +58,13 @@ SDL_FRect Obstacle::GetDst()
     SDL_FRect temp = {m_pos.x, m_pos.y,128,128};
     return temp;
 }
+
+bool Obstacle::GetisHazard()
+{
+    return m_isHazard;
+}
+
+void Obstacle::SetIsHazard(bool hazard)
+{
+    m_isHazard = hazard;
+}
