@@ -19,6 +19,7 @@ void Background::Update()
 	if (m_dst.x <= m_end.x) {
 		m_dst.x = m_start.x;
 	}
+	
 	// Scroll the background
 	m_dst.x -= m_scrollSpeed * m_playerSpeed;
 }
