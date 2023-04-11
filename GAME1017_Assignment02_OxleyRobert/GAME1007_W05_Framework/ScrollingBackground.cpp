@@ -8,22 +8,28 @@ ScrollingBackground::ScrollingBackground()
 	// First background
 	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, {0.0f, 0.0f, WIDTH, HEIGHT }, 0.5f,
 		"../Assets/img/background.png", "menuBG1"));
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 0.5f,
+		"../Assets/img/background.png", "menuBG12"));
+
+
 	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { 0.0f, 0.0f, WIDTH, HEIGHT }, 2.0f,
 		"../Assets/img/towers.png", "towersBG2"));
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 2.0f,
+		"../Assets/img/towers.png", "towersBG22"));
 	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { 0.0f, 0.0f, WIDTH, HEIGHT }, 2.5f,
 		"../Assets/img/buildings.png", "buildingsBG3"));
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 2.5f,
+		"../Assets/img/buildings.png", "buildingsBG32"));
 	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { 0.0f, 0.0f, WIDTH, HEIGHT }, 3.0f,
 		"../Assets/img/foreground.png", "foregroundBG4"));
+	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 3.0f,
+		"../Assets/img/foreground.png", "foregroundBG42"));
 
 	// Second background
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 0.5f,
-		"../Assets/img/background.png", "menuBG1"));
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 2.0f,
-		"../Assets/img/towers.png", "towersBG2"));
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 2.5f,
-		"../Assets/img/buildings.png", "buildingsBG3"));
-	m_backgrounds.push_back(new Background({ 0, 0, WIDTH, HEIGHT }, { WIDTH, 0.0f, WIDTH, HEIGHT }, 3.0f,
-		"../Assets/img/foreground.png", "foregroundBG4"));
+	
+	
+	
+	
 }
 
 ScrollingBackground::~ScrollingBackground()
