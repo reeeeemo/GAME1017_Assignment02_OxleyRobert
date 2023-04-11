@@ -1,6 +1,8 @@
 #include "State.h"
 #include "StateManager.h"
 #include <iostream>
+
+#include "CollisionManager.h"
 #include "RenderManager.h"
 #include "GameObject.h"
 	
@@ -106,6 +108,34 @@ void GameState::Update()
 	{
 		std::cout << "Changing to EndState" << std::endl;
 		STMA::ChangeState(new EndState());
+	}
+	SDL_FRect* p = m_pPlayer->GetDst();
+	for (int i = 0; i < obstacles.size(); i++)
+	{
+		SDL_FRect* t = obstacles[i]->GetDst();
+		if (COMA::AABBCheck(*p, *t)) // Collision check between player rect and platform rect.
+			{
+			if ((p->y + p->h) - (float)m_pPlayer->GetVelY() <= t->y) // If bottom of player < top of platform in "previous frame"
+				{ // Colliding with top side of tile. Or collided from top.
+				m_pPlayer->StopY();
+				m_pPlayer->SetY(t->y - p->h);
+				m_pPlayer->SetGrounded(true);
+				} else if (p->y - static_cast<float>(m_pPlayer->GetVelY()) >= t->y + t->h)
+				{ // Colliding with bottom side of tile
+					m_pPlayer->StopY();
+					m_pPlayer->SetY(t->y + t->h);
+				} else if ((p->x + p->w) - static_cast<float>(m_pPlayer->GetVelX()) <= t->x)
+				{ // Colliding with left side of tile
+					m_pPlayer->StopX();
+					m_pPlayer->SetX(t->x - p->w);
+				} else if (p->x - static_cast<float>(m_pPlayer->GetVelX()) >= (t->x + t->w))
+				{ // Colliding with right side of tile
+					m_pPlayer->StopX();
+					m_pPlayer->SetX(t->x + t->w);
+				}
+			// Other checks to come.
+			}
+		// End collision checks.
 	}
 }
 

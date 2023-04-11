@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "Engine.h"
+#include "Obstacle.h"
 #include "StateManager.h"
 #include "PlatformPlayer.h"
 
@@ -53,6 +54,7 @@ private:
 	map<string, Mix_Chunk*> m_sfx; // Holding player shoot, enemy shoot, and collider sounds
 	PlatformPlayer* m_pPlayer;
 	SDL_FRect* m_pPlatform;
+	std::vector<Obstacle*> obstacles;
 };
 
 // Pause State

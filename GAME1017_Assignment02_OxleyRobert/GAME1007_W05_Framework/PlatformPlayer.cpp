@@ -25,7 +25,6 @@ PlatformPlayer::PlatformPlayer(SDL_Rect src, SDL_FRect dst) :AnimatedSprite(src,
 
 void PlatformPlayer::Update()
 {
-	std::cout << m_dst.y << std::endl;
 	// Checking states.
 	switch (m_state)
 	{
