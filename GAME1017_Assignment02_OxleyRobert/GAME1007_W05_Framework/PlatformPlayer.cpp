@@ -25,6 +25,7 @@ PlatformPlayer::PlatformPlayer(SDL_Rect src, SDL_FRect dst) :AnimatedSprite(src,
 
 void PlatformPlayer::Update()
 {
+	std::cout << m_dst.y << std::endl;
 	// Checking states.
 	switch (m_state)
 	{
@@ -96,9 +97,11 @@ void PlatformPlayer::Update()
 	m_velY += m_accelY + m_grav;
 	m_velY = std::min(std::max(m_velY, -m_maxVelY), m_maxVelY);
 	m_dst.y += (float)m_velY;
-	if (m_dst.y > 630.0f)
+	if (m_dst.y >= 300.0f)
 	{
-		m_dst.y = 630.0f;
+		m_dst.y = 300.0f;
+		m_grounded = true;
+		m_velY = 0.0;
 	}
 	
 	// Wrapping on screen
