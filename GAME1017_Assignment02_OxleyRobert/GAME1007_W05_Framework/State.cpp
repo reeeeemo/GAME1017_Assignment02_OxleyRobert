@@ -92,7 +92,13 @@ void GameState::Update()
 	m_pPlayer->Update();
 	obstacleRow->Update();
 	m_background->Update();
-	m_background->playerSpeed = m_pPlayer->GetVelX();
+	if (m_pPlayer->GetVelX() <= 0)
+	{
+		m_background->playerSpeed = 0;
+	} else
+	{
+		m_background->playerSpeed = m_pPlayer->GetVelX();
+	}
 
 	// Probably can put this in HandleEvents, will do that later
 	if (Engine::Instance().KeyDown(SDL_SCANCODE_P))
