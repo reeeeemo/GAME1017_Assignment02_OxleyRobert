@@ -37,6 +37,7 @@ private: // Properties.
 		m_maxVelY,
 		m_drag,
 		m_grav;
+	SDL_FRect camera;
 };
 
 #endif
