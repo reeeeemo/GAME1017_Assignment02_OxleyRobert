@@ -18,7 +18,7 @@ ObstacleRow::ObstacleRow():m_gapCtr(0), m_gapMax(3)
 
 void ObstacleRow::Update()
 {
-	for (const auto obstacle : m_obstacles)
+	for (auto obstacle : m_obstacles)
 	{
 		// When the first obstacle goes completely offscreen
 		if (obstacle != nullptr) // Error checker!
@@ -28,44 +28,44 @@ void ObstacleRow::Update()
 				delete m_obstacles[0];
 				m_obstacles[0] = nullptr;
 				m_obstacles.erase(m_obstacles.begin());
-
-
-				if (m_obstacles.back() != nullptr)
-				{
-					if (m_gapCtr++ % m_gapMax == 0)
-					{
-						// Lazy way of picking random obstacles :)
-						PickRandomObstacle();
-						Obstacle* obst;
-						switch (curObstacle)
-						{
-						case GREEN_TREE:
-							obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f, 128.0f, 168.0f }, true, new Image({ 0, 0, 110, 168 }, { 128 / 2, -(168 / 2), 110, 168 }, "obstacleSheet"));
-							obst->SetIsHazard(false);
-							m_obstacles.push_back(obst);
-							break;
-						case BLUE_TREE:
-							obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f, 128.0f, 168.0f }, true, new Image({ 110, 164, 110, 168 }, { 128 / 2, -(168 / 2), 110, 168 }, "obstacleSheet"));
-							obst->SetIsHazard(false);
-							m_obstacles.push_back(obst);
-							break;
-						case HANGING_RED_TREE:
-
-							obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f - 128.0f, 128.0f, 168.0f }, true, new Image({ 380, 356, 120, 184 }, { 128 / 2, -(184 / 2), 110, 184 }, "obstacleSheet"));
-							obst->SetIsHazard(true);
-							m_obstacles.push_back(obst);
-							break;
-						}
-					}
-					else {
-						m_obstacles.push_back(new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f, 128.0f, 168.0f }, false, nullptr));
-					}
-				}
-				
-
-
 			}
 			else { // Scroll the obstacles.
+				obstacle->Update();
+			}
+		}
+	}
+
+	for (auto obstacle : m_obstacles)
+	{
+		if (m_obstacles.back() != nullptr)
+		{
+			if (m_gapCtr++ % m_gapMax == 0)
+			{
+				// Lazy way of picking random obstacles :)
+				PickRandomObstacle();
+				Obstacle* obst;
+				switch (curObstacle)
+				{
+				case GREEN_TREE:
+					obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f, 128.0f, 168.0f }, true, new Image({ 0, 0, 110, 168 }, { 128 / 2, -(168 / 2), 110, 168 }, "obstacleSheet"));
+					obst->SetIsHazard(false);
+					m_obstacles.push_back(obst);
+					break;
+				case BLUE_TREE:
+					obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f, 128.0f, 168.0f }, true, new Image({ 110, 164, 110, 168 }, { 128 / 2, -(168 / 2), 110, 168 }, "obstacleSheet"));
+					obst->SetIsHazard(false);
+					m_obstacles.push_back(obst);
+					break;
+				case HANGING_RED_TREE:
+
+					obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f - 128.0f, 128.0f, 168.0f }, true, new Image({ 380, 356, 120, 184 }, { 128 / 2, -(184 / 2), 110, 184 }, "obstacleSheet"));
+					obst->SetIsHazard(true);
+					m_obstacles.push_back(obst);
+					break;
+				}
+			}
+			else {
+				m_obstacles.push_back(new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f, 128.0f, 168.0f }, false, nullptr));
 			}
 		}
 	}
