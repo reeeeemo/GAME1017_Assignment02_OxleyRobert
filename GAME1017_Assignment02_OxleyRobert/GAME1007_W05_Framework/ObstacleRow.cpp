@@ -7,7 +7,9 @@ ObstacleRow::ObstacleRow():m_gapCtr(0), m_gapMax(3)
 	// Create the vector now.
 	for (int i = 0; i < 9; i++)
 	{
-		m_obstacles.push_back(new Obstacle( { 128.0f * i*5, 384.0f, 128.0f, 128.0f }, false, nullptr));
+		auto obst = new Obstacle( { 128.0f * i*5, 384.0f, 128.0f, 128.0f }, false, nullptr);
+		obst->SetIsHazard(true);
+		m_obstacles.push_back(obst);
 	}
 	m_obstacles.shrink_to_fit();
 
@@ -57,7 +59,10 @@ void ObstacleRow::Update()
 						}
 					}
 					else {
-						m_obstacles.push_back(new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f*5, 384.0f, 128.0f, 168.0f }, false, nullptr));
+
+						auto obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f*5, 384.0f, 128.0f, 168.0f }, false, nullptr);
+						obst->SetIsHazard(true);
+						m_obstacles.push_back(obst);
 					}
 				}
 			}
