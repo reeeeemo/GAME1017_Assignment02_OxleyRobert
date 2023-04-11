@@ -104,6 +104,12 @@ void PlatformPlayer::Update()
 	else if (m_dst.x > WIDTH) {
 		m_dst.x = -m_dst.w;
 	}
+	if(m_dst.y >= 448.0f)
+	{
+		m_dst.y = 448.0f;
+		m_grounded = true;
+		m_velY = 0.0f;
+	}
 
 	m_accelX = m_accelY = 0.0; // Resetting accel every frame.
 	if(m_isHit)

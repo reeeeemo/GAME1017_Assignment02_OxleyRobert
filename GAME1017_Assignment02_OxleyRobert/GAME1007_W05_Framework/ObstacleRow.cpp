@@ -7,7 +7,7 @@ ObstacleRow::ObstacleRow():m_gapCtr(0), m_gapMax(3)
 	// Create the vector now.
 	for (int i = 0; i < 9; i++)
 	{
-		m_obstacles.push_back(new Obstacle( { 128.0f * i, 384.0f, 128.0f, 128.0f }, false, nullptr));
+		m_obstacles.push_back(new Obstacle( { 128.0f * i*5, 384.0f, 128.0f, 128.0f }, false, nullptr));
 	}
 	m_obstacles.shrink_to_fit();
 
@@ -39,25 +39,25 @@ void ObstacleRow::Update()
 						switch (curObstacle)
 						{
 						case GREEN_TREE:
-							obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f, 128.0f, 168.0f }, true, new Image({ 0, 0, 110, 168 }, { 128 / 2, -(168 / 2), 110, 168 }, "obstacleSheet"));
-							obst->SetIsHazard(false);
+							obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f*5, 384.0f, 128.0f, 168.0f }, true, new Image({ 0, 0, 110, 168 }, { 128 / 2, -(168 / 2), 110, 168 }, "obstacleSheet"));
+							obst->SetIsHazard(true);
 							m_obstacles.push_back(obst);
 							break;
 						case BLUE_TREE:
-							obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f, 128.0f, 168.0f }, true, new Image({ 110, 164, 110, 168 }, { 128 / 2, -(168 / 2), 110, 168 }, "obstacleSheet"));
-							obst->SetIsHazard(false);
+							obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f*5, 384.0f, 128.0f, 168.0f }, true, new Image({ 110, 164, 110, 168 }, { 128 / 2, -(168 / 2), 110, 168 }, "obstacleSheet"));
+							obst->SetIsHazard(true);
 							m_obstacles.push_back(obst);
 							break;
 						case HANGING_RED_TREE:
 
-							obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f - 128.0f, 128.0f, 168.0f }, true, new Image({ 380, 356, 120, 184 }, { 128 / 2, -(184 / 2), 110, 184 }, "obstacleSheet"));
+							obst = new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f*5, 384.0f, 128.0f, 168.0f }, true, new Image({ 380, 356, 120, 184 }, { 128 / 2, -(184 / 2), 110, 184 }, "obstacleSheet"));
 							obst->SetIsHazard(true);
 							m_obstacles.push_back(obst);
 							break;
 						}
 					}
 					else {
-						m_obstacles.push_back(new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f, 384.0f, 128.0f, 168.0f }, false, nullptr));
+						m_obstacles.push_back(new Obstacle({ m_obstacles.back()->GetPos().x + 128.0f*5, 384.0f, 128.0f, 168.0f }, false, nullptr));
 					}
 				}
 			}
