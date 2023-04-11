@@ -13,6 +13,8 @@ public:
 	~ScrollingBackground();
 	void Update();
 	void Render();
+
+	float playerSpeed = 0.0f;
 private:
 	std::vector<Background*> m_backgrounds;
 };

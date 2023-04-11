@@ -84,6 +84,7 @@ void GameState::Update()
 {
 	m_pPlayer->Update();
 	m_background->Update();
+	m_background->playerSpeed = m_pPlayer->GetVelX();
 
 	// Probably can put this in HandleEvents, will do that later
 	if (Engine::Instance().KeyDown(SDL_SCANCODE_P))
