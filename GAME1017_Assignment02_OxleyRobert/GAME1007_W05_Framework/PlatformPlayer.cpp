@@ -5,6 +5,8 @@
 #include "TextureManager.h"
 #include <cmath>
 #include <iostream>
+
+#include "StateManager.h"
 using namespace std;
 
 const std::string plrSpriteFile = "../Assets/img/Player.png";
@@ -134,7 +136,6 @@ void PlatformPlayer::Update()
 		m_velX = 0.0;
 		m_velY = 0.0;
 		SetAnimation(STATE_DEATH, "jump");
-		
 	}
 	// Invoke the animation.
 	Animate();

@@ -153,6 +153,10 @@ void GameState::Update()
 			}
 		// End collision checks.
 	}
+	if(m_pPlayer->isHit())
+	{
+		STMA::ChangeState(new EndState);
+	}
 	
 }
 
