@@ -29,7 +29,7 @@ ScrollingBackground::ScrollingBackground()
 
 	for (int i = 0; i < 18; i++)
 	{
-		m_backgrounds.push_back(new Background({ 0, 0, 32, 32 }, { static_cast<float>(128 * i), 512 - 64, 128, 128 }, 3.0f,
+		m_backgrounds.push_back(new Background({ 0, 0, 32, 32 }, { static_cast<float>(128 * i), 512 - 64, 128, 128 }, 0.1f,
 			"../Assets/img/obstacles/Tilesets/terrain.png", "terrainSheet"));
 	}
 	

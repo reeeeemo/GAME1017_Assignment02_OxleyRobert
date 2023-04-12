@@ -23,7 +23,7 @@ PlatformPlayer::PlatformPlayer(SDL_Rect src, SDL_FRect dst) :AnimatedSprite(src,
 	SetAnimation(m_state, "idle"); // Initialize idle animation.
 
 	camera = m_dst;
-	m_isCameraDisabled = false;
+	m_isCameraDisabled = true;
 }
 
 void PlatformPlayer::Update()

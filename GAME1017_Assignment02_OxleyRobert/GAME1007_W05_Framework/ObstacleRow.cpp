@@ -15,6 +15,7 @@ ObstacleRow::ObstacleRow():m_gapCtr(0), m_gapMax(3)
 
 	// Load the textures
 	TEMA::Load("../Assets/img/obstacles/Tilesets/trees.png", "obstacleSheet");
+	TEMA::Load("../Assets/img/obstacles/Tilesets/god.png", "god");
 
 }
 
@@ -58,7 +59,7 @@ void ObstacleRow::Update()
 				}
 				else
 				{
-					auto obst = new Obstacle({ 0 + 128.0f*10, 384.0f, 128.0f, 168.0f }, false, nullptr);
+					auto obst = new Obstacle({ 0 + 128.0f*10, 384.0f, 128.0f, 168.0f }, true, new Image({ 0, 0, 1280, 720 }, { 0, 184, 110, 184 }, "god"));
 					obst->SetIsHazard(false);
 					m_obstacles.push_back(obst);
 				}
