@@ -48,8 +48,8 @@ void Obstacle::Render()
         m_pImage->Render();
     }
 	
-    SDL_SetRenderDrawColor(REMA::GetRenderer(), 128, 0, 128, 255);
-    SDL_RenderDrawRectF(REMA::GetRenderer(), &m_dst);
+   // SDL_SetRenderDrawColor(REMA::GetRenderer(), 128, 0, 128, 255);
+    //SDL_RenderDrawRectF(REMA::GetRenderer(), &m_dst);
 }
 
 SDL_FRect Obstacle::GetDst()

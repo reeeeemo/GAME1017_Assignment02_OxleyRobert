@@ -80,7 +80,7 @@ void ObstacleRow::Render()
 {
 	// Blue line under obstacles.
 	SDL_SetRenderDrawColor(REMA::GetRenderer(), 0, 0, 255, 255);
-	SDL_RenderDrawLine(REMA::GetRenderer(), 0, 512, 1024, 512);
+	//SDL_RenderDrawLine(REMA::GetRenderer(), 0, 512, 1024, 512);
 	// Render the obstacles.
 	for (const auto obstacle : m_obstacles)
 	{

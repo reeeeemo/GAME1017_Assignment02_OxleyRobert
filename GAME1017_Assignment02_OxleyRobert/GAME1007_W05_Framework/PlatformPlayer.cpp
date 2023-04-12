@@ -59,6 +59,10 @@ void PlatformPlayer::Update()
 		{
 			SetAnimation(STATE_RUNNING, "run");
 		}
+		else if (EVMA::KeyHeld(SDL_SCANCODE_S))
+		{
+			SetAnimation(STATE_DUCKING, "duck");
+		}
 		break;
 	case STATE_JUMPING:
 		// Move left and right
@@ -101,6 +105,29 @@ void PlatformPlayer::Update()
 		}
 		else if (EVMA::KeyReleased(SDL_SCANCODE_A) || EVMA::KeyReleased(SDL_SCANCODE_D))
 		{
+			SetAnimation(STATE_IDLING, "idle");
+		}
+		break;
+	case STATE_DUCKING:
+		// Move left and right
+		if (EVMA::KeyHeld(SDL_SCANCODE_A))
+		{
+			m_accelX = -1.5;
+			m_facingLeft = true;
+		}
+		if (EVMA::KeyHeld(SDL_SCANCODE_D))
+		{
+			m_accelX = 1.5;
+			m_facingLeft = false;
+		}
+		if (EVMA::KeyPressed(SDL_SCANCODE_SPACE) && m_grounded)
+		{
+			m_accelY = -kJumpForce; // SetAccelY(-JUMPFORCE);
+			m_grounded = false; // SetGrounded(false);
+			//SOMA::PlaySound("jump");
+			SetAnimation(STATE_JUMPING, "jump");
+		}
+		if (EVMA::KeyReleased(SDL_SCANCODE_S)) {
 			SetAnimation(STATE_IDLING, "idle");
 		}
 		break;
