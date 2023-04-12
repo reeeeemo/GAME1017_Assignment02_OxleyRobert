@@ -6,6 +6,7 @@
 #include "RenderManager.h"
 #include "GameObject.h"
 #include "FontManager.h"	
+#include "TextureManager.h"
 
 void State::Render()
 {
@@ -61,7 +62,7 @@ void GameState::Enter() // Initializing everything
 	std::cout << "Entering GameState!" << std::endl;
 
 	FOMA::Load("../Assets/font/OpenSans-Medium.ttf", "sans", 24);
-	
+
 	// Error checking sounds...... (maybe no errors?)
 	for (std::pair<string, Mix_Chunk*> soundFX : m_sfx) 
 	{
@@ -73,7 +74,6 @@ void GameState::Enter() // Initializing everything
 
 	m_pPlayer = new PlatformPlayer({ 0,0,0,0 }, { 128,576,64,64 } );
 	m_background = new ScrollingBackground();
-	m_pPlatform = new SDL_FRect( { 0, 700, WIDTH, 20.0f } );
 
 	m_pPlayer->SetX(500.0f);
 	m_pPlayer->SetY(500.0f);
@@ -184,7 +184,6 @@ void GameState::Render()
 	
 
 	SDL_SetRenderDrawColor(REMA::GetRenderer(), 255, 0, 0, 255);
-	SDL_RenderFillRectF(REMA::GetRenderer(), m_pPlatform);
 	obstacleRow->Render();
 }
 

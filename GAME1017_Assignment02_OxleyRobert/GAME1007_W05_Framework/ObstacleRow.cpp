@@ -59,7 +59,7 @@ void ObstacleRow::Update()
 				else
 				{
 					auto obst = new Obstacle({ 0 + 128.0f*10, 384.0f, 128.0f, 168.0f }, false, nullptr);
-					obst->SetIsHazard(true);
+					obst->SetIsHazard(false);
 					m_obstacles.push_back(obst);
 				}
 			}

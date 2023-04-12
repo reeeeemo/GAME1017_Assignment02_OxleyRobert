@@ -47,7 +47,6 @@ void Obstacle::Render()
         // Render image
         m_pImage->Render();
     }
-    // Render border for just week 9 lab.
 	
     SDL_SetRenderDrawColor(REMA::GetRenderer(), 128, 0, 128, 255);
     SDL_RenderDrawRectF(REMA::GetRenderer(), &m_dst);
