@@ -21,10 +21,16 @@ PlatformPlayer::PlatformPlayer(SDL_Rect src, SDL_FRect dst) :AnimatedSprite(src,
 	//TEMA::Load("../Assets/img/player.png", "player");
 	m_accelX = m_accelY = m_velX = m_velY = 0.0;
 	SetAnimation(m_state, "idle"); // Initialize idle animation.
+
+	camera = m_dst;
 }
 
 void PlatformPlayer::Update()
 {
+	// Updating Camera
+	camera = m_dst;
+	camera.x -= WIDTH / 2;
+	camera.y -= HEIGHT / 2;
 	// Checking states.
 	switch (m_state)
 	{
@@ -126,14 +132,16 @@ void PlatformPlayer::Update()
 
 void PlatformPlayer::Render()
 {
+	SDL_FRect temp_dst;
+	temp_dst = { m_dst.x - camera.x, m_dst.y - camera.y, m_dst.w, m_dst.h };
 	//DEMA::DrawRect(*GetDst(), true, { 255, 0, 0, 255 });
 	if (m_facingLeft) {
 		SDL_RenderCopyExF(REMA::GetRenderer(), TEMA::GetTexture(plrKey),
-			GetSrc(), GetDst(), 0, NULL, SDL_FLIP_HORIZONTAL);
+			GetSrc(), &temp_dst, 0, NULL, SDL_FLIP_HORIZONTAL);
 	}
 	else {
 		SDL_RenderCopyExF(REMA::GetRenderer(), TEMA::GetTexture(plrKey),
-			GetSrc(), GetDst(), 0, NULL, SDL_FLIP_NONE);
+			GetSrc(), &temp_dst, 0, NULL, SDL_FLIP_NONE);
 	}
 	
 }
