@@ -4,8 +4,8 @@
 #include "SDL_rect.h"
 
 // These could be moved... perhaps to a PhysicsManager?
-constexpr double kGrav = 2.0;
-constexpr double kJumpForce = 25.0;
+constexpr double kGrav = 1.0;
+constexpr double kJumpForce = 30.0;
 
 class PlatformPlayer : public AnimatedSprite
 {
