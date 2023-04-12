@@ -28,7 +28,7 @@ public: // Methods.
 	void SetY(float y);
 	double GetAccelY();
 private: // Properties.
-	bool m_grounded, m_facingLeft, m_isHit;
+	bool m_grounded, m_facingLeft, m_isHit, m_isCameraDisabled;
 	double m_accelX,
 		m_accelY,
 		m_velX,
